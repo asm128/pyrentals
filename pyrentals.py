@@ -21,7 +21,7 @@ class Cart:
             total_price += rental_price
 
         rental_count = len(unit_prices)
-        discount_qualified = rental_count in range(3, 5)
+        discount_qualified = rental_count in range(3, 6)
         discount_applied = enable_discount and discount_qualified
         if discount_applied:
             discount_value = total_price * .3
