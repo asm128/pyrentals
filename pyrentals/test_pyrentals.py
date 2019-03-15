@@ -60,6 +60,18 @@ class Test_test_pyrentals(unittest.TestCase):
         raw_price = sum([x["Time"] * price_list[x["Type"]] for x in test_cart_instance.Rentals])
         return self.assertEqual(raw_price, sum(output_prices))
 
+    def test_add_rental(self):
+        test_cart_instance = Cart()
+        price_list = {"Hour": 5, "Day": 15, "Month": 60}
+        test_rental = {"Type": "Day", "Time": 2}
+        for x in range(2):
+            test_cart_instance.add_rental(test_rental["Type"], test_rental["Time"]) 
+        output_prices = []
+        final_price = test_cart_instance.calculate_price(price_list, output_prices)
+        for price in output_prices:
+            self.assertEqual(30, price)
+        self.assertEqual(60, final_price)
+        return
 
 if __name__ == '__main__':
     unittest.main()
