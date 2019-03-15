@@ -6,14 +6,13 @@ class Cart:
     def empty(self):
         return 0 == len(self.Rentals)
 
-    def calculate_price(self, price_list = [], unit_prices = [], enable_discount = True):
+    def calculate_price(self, price_list = {}, unit_prices = [], enable_discount = True):
         total_price = 0
         if 0 == len(price_list):
             price_list = self.PriceList
 
         unit_prices.extend([price_list[self.Rentals[iRental]["Type"]] * self.Rentals[iRental]["Time"] for iRental in range(len(self.Rentals))])
         total_price = sum(unit_prices)
-
         rental_count = len(unit_prices)
         discount_qualified = rental_count in range(3, 6)
         discount_applied = enable_discount and discount_qualified
