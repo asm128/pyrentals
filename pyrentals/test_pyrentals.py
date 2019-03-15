@@ -41,7 +41,6 @@ class Test_test_pyrentals(unittest.TestCase):
         raw_price = sum([x["Time"] * price_list[x["Type"]] for x in self.test_cart_instance.Rentals])
         self.assertLess(final_price, raw_price)
         return self.assertTrue(final_price == raw_price - raw_price * .3)
-        
 
     def test_output_prices(self):
         self.test_cart_instance = Cart()
