@@ -31,5 +31,18 @@ class Test_test_pyrentals(unittest.TestCase):
         self.assertEqual(60, final_price)
         return
 
+    def test_family_discount(self):
+        self.test_cart_instance = Cart()
+        price_list = {"Hour": 5, "Day": 15, "Month": 60}
+        test_rental = {"Type": "Day", "Time": 2}
+        self.test_cart_instance.Rentals = [test_rental, test_rental, test_rental, ]
+        output_prices = []
+        final_price = self.test_cart_instance.calculate_price(price_list, output_prices)
+        raw_price = sum([x["Time"] * price_list[x["Type"]] for x in self.test_cart_instance.Rentals])
+        self.assertLess(final_price, raw_price)
+        self.assertEqual(raw_price, sum(output_prices))
+        self.assertTrue(final_price == raw_price - raw_price * .3)
+        return
+
 if __name__ == '__main__':
     unittest.main()
