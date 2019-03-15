@@ -31,6 +31,5 @@ class Cart:
         if not rental_type in self.PriceList.keys():
             raise KeyError("Invalid rental type: {}".format(rental_type))
         if rental_time <= 0:
-            raise KeyError("Invalid rental time: {} {}{}".format(rental_time, rental_type, "s" if rental_time > 1 else ""))
+            raise ValueError("Invalid rental time: {} {}{}".format(rental_time, rental_type, "s" if rental_time > 1 else ""))
         self.Rentals.append({"Type": rental_type, "Time": rental_time})
-
