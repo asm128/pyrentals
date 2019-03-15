@@ -21,7 +21,7 @@ class Test_test_pyrentals(unittest.TestCase):
         test_cart_instance = Cart()
         price_list = {"Hour": 5, "Day": 15, "Month": 60}
         test_rental = {"Type": "Day", "Time": 2}
-        test_cart_instance.Rentals = [test_rental, test_rental, ]
+        test_cart_instance.Rentals = [test_rental] * 2
         output_prices = []
         final_price = test_cart_instance.calculate_price(price_list, output_prices)
         for price in output_prices:
@@ -33,18 +33,28 @@ class Test_test_pyrentals(unittest.TestCase):
         test_cart_instance = Cart()
         price_list = {"Hour": 5, "Day": 15, "Month": 60}
         test_rental = {"Type": "Day", "Time": 2}
-        test_cart_instance.Rentals = [test_rental, test_rental, test_rental, ]
+        test_cart_instance.Rentals = [test_rental] * 3
         output_prices = []
         final_price = test_cart_instance.calculate_price(price_list, output_prices)
         raw_price = sum([x["Time"] * price_list[x["Type"]] for x in test_cart_instance.Rentals])
         self.assertLess(final_price, raw_price)
         return self.assertTrue(final_price == raw_price - raw_price * .3)
 
+    def test_family_discount_limit(self):
+        test_cart_instance = Cart()
+        price_list = {"Hour": 5, "Day": 15, "Month": 60}
+        test_rental = {"Type": "Day", "Time": 2}
+        test_cart_instance.Rentals = [test_rental] * 6
+        output_prices = []
+        final_price = test_cart_instance.calculate_price(price_list, output_prices)
+        raw_price = sum([x["Time"] * price_list[x["Type"]] for x in test_cart_instance.Rentals])
+        return self.assertEqual(final_price, raw_price)
+
     def test_output_prices(self):
         test_cart_instance = Cart()
         price_list = {"Hour": 5, "Day": 15, "Month": 60}
         test_rental = {"Type": "Day", "Time": 2}
-        test_cart_instance.Rentals = [test_rental, test_rental, test_rental, ]
+        test_cart_instance.Rentals = [test_rental] * 3
         output_prices = []
         final_price = test_cart_instance.calculate_price(price_list, output_prices)
         raw_price = sum([x["Time"] * price_list[x["Type"]] for x in test_cart_instance.Rentals])
